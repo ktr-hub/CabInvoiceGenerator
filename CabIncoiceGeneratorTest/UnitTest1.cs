@@ -12,6 +12,7 @@ namespace CabIncoiceGeneratorTest
             invoiceGenerator = null;
         }
 
+        //UC-1
         [Test]
         public void GivenDistanceAndTimeShouldReturnTotalFare()
         {
@@ -25,6 +26,7 @@ namespace CabIncoiceGeneratorTest
             Assert.AreEqual(fare, expected);
         }
 
+        //UC-2
         [Test]
         public void GivenMultipleRidesShouldReturnInvoiceSummary()
         {
@@ -37,6 +39,7 @@ namespace CabIncoiceGeneratorTest
             Assert.AreEqual(expectedSummary, summary);
         }
 
+        //UC-3
         [Test]
         public void GivenMultipleRidesShouldReturnEnhancedInvoice()
         {
@@ -49,6 +52,7 @@ namespace CabIncoiceGeneratorTest
             Assert.AreEqual(expectedSummary, summary);
         }
 
+        //UC-4
         [Test]
         public void GivenUserIdShouldReturnInvoiceService()
         {
@@ -62,7 +66,22 @@ namespace CabIncoiceGeneratorTest
             InvoiceSummary expectedSummary = new InvoiceSummary(2, 30, 15);
 
             Assert.AreEqual(expectedSummary, invoiceSummary);
+        }
 
+        //UC-5
+        [Test]
+        public void GivenPremiumRidesReturnInvoiceService()
+        {
+            invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
+            Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
+
+            invoiceGenerator.AddRides("ktr", rides);
+
+            InvoiceSummary invoiceSummary = invoiceGenerator.GetInvoiceSummary("ktr");
+
+            InvoiceSummary expectedSummary = new InvoiceSummary(2, 60);
+
+            Assert.AreEqual(expectedSummary, invoiceSummary);
         }
 
     }
